@@ -1,0 +1,65 @@
+DROP DATABASE IF EXISTS CarDealership;
+
+CREATE DATABASE IF NOT EXISTS CarDealership;
+
+USE CarDealership;
+
+CREATE TABLE `Dealerships`(
+`Dealership` INT AUTO_INCREMENT,
+`Name` VARCHAR(50),
+`Address` VARCHAR(50),
+`Phone` VARCHAR(15),
+PRIMARY KEY (`Dealership`));
+
+CREATE TABLE `Vehicles`(
+`Make` VARCHAR(50),
+`Model` VARCHAR(50),
+`Year` INT,
+`Vin` Varchar(17),
+`Sold` BOOLEAN,
+PRIMARY KEY (`Vin`));
+
+CREATE TABLE `Inventory`(
+`DealershipID` INT,
+`VIN` VARCHAR(17));
+
+CREATE TABLE `SalesContracts`(
+`ContractID` INT AUTO_INCREMENT,
+`DealershipID` INT,
+`VIN` VARCHAR(17),
+`Price` DOUBLE,
+PRIMARY KEY (`ContractID`),
+FOREIGN KEY (VIN) REFERENCES Vehicles(VIN));
+
+INSERT INTO Dealerships(Name, Address, Phone)
+VALUES
+('ABC Motors', '123 Main Street', '(123) 456-7890'),
+('XYZ Auto Group', '456 Oak Avenue', '(987) 654-3210'),
+('Smithson Dealership', '789 Elm Drive', '(555) 123-4567');
+
+INSERT INTO Vehicles (Make, Model, Year, Vin, Sold)
+VALUES
+('Toyota', 'Camry', 2018, '1HGBH41JXMN109186', TRUE),
+('Honda', 'Accord', 2020, '2C3CDZAG3GH141372', FALSE),
+('Ford', 'F-150', 2019, '3D7KS28C58G204982', TRUE),
+('Chevrolet', 'Silverado', 2017, '5FNRL386X5B407776', FALSE),
+('BMW', '3 Series', 2021, '1GNSKJKJG58921045', TRUE),
+('Mercedes-Benz', 'C-Class', 2022, '2C4RDGEG8HR754321', FALSE);
+
+INSERT INTO Inventory (DealershipID, Vin)
+VALUES
+(1, '1HGBH41JXMN109186'),
+(2, '2C3CDZAG3GH141372'),
+(3, '3D7KS28C58G204982'),
+(4, '5FNRL386X5B407776'),
+(5, '1GNSKJKJG58921045'),
+(6, '2C4RDGEG8HR754321');
+
+INSERT INTO SalesContracts (DealershipID, Vin, Price)
+VALUES
+(1, '1HGBH41JXMN109186', 11597.00),
+(2, '2C3CDZAG3GH141372', 27935.00),
+(3, '3D7KS28C58G204982', 18219.00),
+(4, '5FNRL386X5B407776', 11995.00),
+(5, '1GNSKJKJG58921045', 41250.00 ),
+(6, '2C4RDGEG8HR754321', 44600.00);
